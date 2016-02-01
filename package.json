@@ -3,9 +3,9 @@
   "description": "Solver for Blocks - puzzle game",
   "version": "0.0.1",
   "devDependencies": {
-    "chai": "node_modules/chai",
+    "chai": "^3.5.0",
     "deeper": "^2.1.0",
-    "mocha": "node_modules/mocha"
+    "mocha": "^2.4.5"
   },
   "scripts": {
     "test": "mocha"
