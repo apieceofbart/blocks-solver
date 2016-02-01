@@ -3,7 +3,9 @@ var solver = require('../solver');
 var transpose = require('../utils/transpose');
 var collapse = require('../utils/collapse');
 var vanish = require('../utils/vanish');
+var emptyGrid = require('../utils/grid');
 
+var grid = emptyGrid();
 
 describe('basic testing', function() {
 
@@ -26,28 +28,18 @@ describe('basic testing', function() {
 describe('fill grid function', function() {
 
     it('should return the empty grid if input is empty', function() {
-        var grid = [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        ];
+
         expect(solver.fillGrid()).to.deep.equal(grid);
     })
 
     it('should work for 1 dimensional input of even length', function() {
 
         var grid = [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
         ];
         expect(solver.fillGrid([
             [1, 1]
@@ -57,13 +49,12 @@ describe('fill grid function', function() {
     it('should work for 1 dimensional input of odd length', function() {
 
         var grid = [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0],
+
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 1, 1, 1, 0, 0, 0, 0],
         ];
         expect(solver.fillGrid([
             [1, 1, 1]
@@ -73,13 +64,12 @@ describe('fill grid function', function() {
     it('should work for 2 dimensional input', function() {
 
         var grid = [
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 2, 1, 1, 2, 0, 0, 0, 0],
+
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
+            [0, 0, 0, 2, 1, 1, 2, 0, 0, 0],
         ];
         expect(solver.fillGrid([
             [0, 0, 2, 0],
@@ -343,9 +333,18 @@ describe('is empty funciton', function() {
 
 
 describe('find solution function', function() {
+    it('should work for empty grid', function() {
+        expect(solver.findSolution([
+            [0, 0, 0, 0]
+        ])).to.deep.equal([]);
+    })
     it('should work for level 1', function() {
         expect(solver.findSolution([
             [0, 0, 1, 0, 1, 1, 0, 0]
-        ])).to.equal(1);
+        ])).to.deep.equal([{
+            x: 3,
+            y: 4,
+            direction: "right"
+        }]);
     })
 })
