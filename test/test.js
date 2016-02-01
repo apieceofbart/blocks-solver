@@ -347,4 +347,15 @@ describe('find solution function', function() {
             direction: "right"
         }]);
     })
+
+    it('should find a solution for level 2 in one step', function() {
+        var solution = solver.findSolution([
+            [0, 1, 0],
+            [1, 1, 0]
+        ]);
+        console.log(solution);
+        expect(solution).to.be.instanceof(Array);
+        expect(solution.length).to.equal(1);
+
+    })
 })

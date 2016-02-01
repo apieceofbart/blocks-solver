@@ -72,7 +72,9 @@ function findSolution(input) {
         if (isEmpty(grid)) {
             return path;
         }
+
         if (path.length > stepsLimit) {
+            console.log('too long!');
             return -1;
         }
         var height = grid.length,
@@ -85,6 +87,8 @@ function findSolution(input) {
                 if (grid[y][x] !== 0) {
                     //move right
                     if (x < width - 1) {
+                        console.log(grid);
+                        console.log('swapping', y, ',', x)
                         var temp = grid[y][x];
                         grid[y][x] = grid[y][x + 1];
                         grid[y][x + 1] = temp;
@@ -94,7 +98,9 @@ function findSolution(input) {
                             y: y,
                             direction: "right"
                         })
-                        return nextMove(grid, path);
+                        console.log(grid);
+                        var next = nextMove(grid, path);
+                        if (next !== -1) return next;
                     }
                     //move left
                     /* if (x > 0) {
