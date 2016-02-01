@@ -34,7 +34,7 @@ function fillGrid(input) {
         var gridY = gridHeight - 1;
 
         for (var y = height - 1; y >= 0; y--) {
-            for (x = 0; x < width; x++) {
+            for (var x = 0; x < width; x++) {
                 grid[gridY][Math.floor((gridWidth - width) / 2) + x] = input[y][x];
             }
             gridY--;
@@ -45,11 +45,62 @@ function fillGrid(input) {
     return grid;
 }
 
+function isEmpty(grid) {
+    var empty = true;
+    grid.forEach(function(row) {
+        row.forEach(function(el) {
+            if (el !== 0) empty = false;
+        })
+    })
+    return empty;
+
+}
 
 function findSolution(input) {
 
+    /* 
+    	BRUTE FORCE:
+    	we move each block in 3 or possible directions (we only move up if there's a block there)
+    	from there we clear grid and move again. 
+    	note: moving is always swaping, sometimes with a block sometimes with air (number 0)
+    	We stop after fixed steps (e.g. 5) or when the grid is empty
+    */
+
     var grid = fillGrid(input);
 
+    if (isEmpty(nextMove(grid))) {
+        return 1;
+    }
+
+    function nextMove(grid) {
+        var height = grid.length,
+            width = grid[0].length;
+        var moves = 0;
+        for (var y = height - 1; y >= 0; y--) {
+            for (var x = 0; x < width; x++) {
+                if (grid[y][x] !== 0) {
+                    //move right
+                    if (x < width - 1) {
+                        var temp = grid[y][x];
+                        grid[y][x] = grid[y][x + 1];
+                        grid[y][x + 1] = temp;
+                        grid = clearGrid(grid);
+                        return grid;
+                    }
+                    //move left
+                    /* if (x > 0) {
+                         var temp = grid[y][x];
+                         grid[y][x] = grid[y][x - 1];
+                         grid[y][x - 1] = temp;
+                         grid = clearGrid(grid);
+                         return grid;
+                     }*/
+
+                }
+            }
+
+        }
+    }
 
 }
 
@@ -65,6 +116,7 @@ function clearGrid(grid) {
     	we loop until there are no hanging block or groups
 
     */
+
     var oldGrid;
 
     do {
@@ -78,5 +130,7 @@ function clearGrid(grid) {
 
 module.exports = {
     fillGrid: fillGrid,
-    clearGrid: clearGrid
+    clearGrid: clearGrid,
+    isEmpty: isEmpty,
+    findSolution: findSolution
 }

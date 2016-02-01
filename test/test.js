@@ -300,3 +300,29 @@ describe('clear grid function', function() {
         ]);
     })
 })
+
+describe('is empty funciton', function() {
+    it('should work for simple examples', function() {
+        expect(solver.isEmpty([
+            [0, 0, 0],
+            [0, 0, 0]
+        ])).to.equal(true);
+
+        expect(solver.isEmpty([
+            [0, 0, 0],
+            [1, 1, 0]
+        ])).to.equal(false)
+
+    })
+
+
+})
+
+
+describe('find solution function', function() {
+    it('should work for level 1', function() {
+        expect(solver.findSolution([
+            [0, 0, 1, 0, 1, 1, 0, 0]
+        ])).to.equal(1);
+    })
+})
