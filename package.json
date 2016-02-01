@@ -1,12 +1,13 @@
 {
-    "name": "blocks-solvers",
-    "description": "Solver for Blocks - puzzle game",
-    "version": "0.0.1",
-    "devDependencies": {
-        "chai": "node_modules/chai",
-        "mocha": "node_modules/mocha"
-    },
-    "scripts": {
-        "test": "mocha"
-    }
+  "name": "blocks-solvers",
+  "description": "Solver for Blocks - puzzle game",
+  "version": "0.0.1",
+  "devDependencies": {
+    "chai": "node_modules/chai",
+    "deeper": "^2.1.0",
+    "mocha": "node_modules/mocha"
+  },
+  "scripts": {
+    "test": "mocha"
+  }
 }

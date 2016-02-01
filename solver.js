@@ -1,3 +1,7 @@
+var deepEqual = require('deeper');
+var collapse = require('./utils/collapse');
+var transpose = require('./utils/transpose');
+
 function fillGrid(input) {
 
     //by default we setup a big grid
@@ -39,4 +43,33 @@ function fillGrid(input) {
     return grid;
 }
 
-module.exports.fillGrid = fillGrid;
+
+function findSolution(input) {
+
+    var grid = fillGrid(input);
+
+
+}
+
+function clearGrid(grid) {
+
+    /* 
+    	cleaning is a 2 step process:
+
+    	1) we look for any blocks that are hanging in the air, e.g. if there's no block benath the block should fall down
+    	2) we look for groups of the same object, group is a vertical or horizontal line with min. length of 3. 
+    		If we find such group we remove all the blocks form the group and go to step 1.
+    	
+    	we loop until there are no hanging block or grops
+
+    */
+
+
+
+}
+
+
+module.exports = {
+    fillGrid: fillGrid,
+    clearGrid: clearGrid
+}
