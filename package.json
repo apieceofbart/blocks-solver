@@ -1,13 +1,17 @@
 {
-  "name": "blocks-solvers",
-  "description": "Solver for Blocks - puzzle game",
-  "version": "0.0.1",
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "deeper": "^2.1.0",
-    "mocha": "^2.4.5"
-  },
-  "scripts": {
-    "test": "mocha"
-  }
+    "name": "blocks-solvers",
+    "description": "Solver for Blocks - puzzle game",
+    "version": "0.0.1",
+    "devDependencies": {
+        "chai": "^3.5.0",
+        "chalk": "^1.1.1",
+        "clone": "^1.0.2",
+        "deeper": "^2.1.0",
+        "mocha": "^2.4.5"
+    },
+    "scripts": {
+        "test": "mocha",
+        "test-save": "mocha -R spec  test/test.js > report 2>&1"
+
+    }
 }
