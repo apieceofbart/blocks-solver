@@ -336,26 +336,30 @@ describe('find solution function', function() {
     it('should work for empty grid', function() {
         expect(solver.solve([
             [0, 0, 0, 0]
-        ])).to.deep.equal({
+        ])).to.deep.equal([{
             direction: "FINISHED"
-        });
+        }]);
     })
     it('should work for level 1', function() {
         var sol = solver.solve([
             [0, 0, 1, 0, 1, 1, 0, 0]
         ]);
 
-        expect(sol).to.deep.equal({
+        expect(sol).to.deep.equal([{
             x: 3,
             y: 4,
             direction: "right"
-        });
+        }, {
+            direction: "FINISHED"
+        }]);
     })
 
-    /*    it('should work for two right moves solution', function() {
+
+    it('should work for two right moves solution', function() {
         var sol = solver.solve([
             [0, 0, 1, 0, 0, 1, 1, 0, 0]
         ]);
+        console.log(sol);
         expect(sol.length).to.equal(2);
         expect(sol).to.deep.equal([{
             x: 2,
@@ -366,23 +370,23 @@ describe('find solution function', function() {
             y: 4,
             direction: "right"
         }])
-    })*/
-
-
-    it('should find a solution for level 2 in one step', function() {
-        var solution = solver.solve([
-            [0, 1, 0],
-            [1, 1, 0]
-        ]);
-        /*expect(solution).to.be.instanceof(Array);
-        expect(solution.length).to.equal(1);*/
-        expect(solution).to.deep.equal({
-            x: 4,
-            y: 4,
-            direction: "right"
-        })
-
     })
+
+
+
+    /* it('should find a solution for level 2 in one step', function() {
+     var solution = solver.solve([
+         [0, 1, 0],
+         [1, 1, 0]
+     ]);     
+     expect(solution).to.deep.equal({
+         x: 4,
+         y: 4,
+         direction: "right"
+     })
+
+ })
+*/
 
 
 })

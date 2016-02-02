@@ -90,25 +90,26 @@ function solve(input, stepsLimit) {
     var grid = fillGrid(input);
 
     var stepsLimit = stepsLimit || 1;
-    var solutions = [];
+    var possibleSolutions = [],
+        solutions = [];
 
-    var solutions = findSolution(grid, 1);
+
+    var possibleSolutions = findSolution(grid, 2);
     //find correct solutions
 
-    console.log('before:',
-        solutions)
+    //console.log('before:',possibleSolutions);
 
-    /*solutions.filter(function(solution) {
+    if (isEmpty(grid)) return possibleSolutions;
 
-    while (solution.next) {
-        if (solution.next === "FINSHED") return true;
-        solution = solution.next;
-    }
-    return false;
-})
-*/
+    possibleSolutions.forEach(function(solution) {
 
-    console.log('after:', solutions);
+        if (solution[solution.length - 1].direction === "FINISHED") {
+            solutions.push(solution);
+        }
+    });
+
+
+    //console.log('after:', solutions);
 
 
     //console.log(solutions[0]);
@@ -117,15 +118,16 @@ function solve(input, stepsLimit) {
 
     function findSolution(grid, stepsLimit) {
 
+        if (isEmpty(grid)) return [{
+            direction: "FINISHED"
+        }];
         if (stepsLimit === 0) {
             //console.log(chalk.yellow.bgRed(stepsLimit));
-            return {
+            return [{
                 direction: "STEPS LIMIT"
-            };
+            }];
         }
-        if (isEmpty(grid)) return {
-            direction: "FINISHED"
-        };
+
         var solutions = [];
         var height = grid.length,
             width = grid[0].length;
@@ -137,16 +139,16 @@ function solve(input, stepsLimit) {
                     if ((x < width - 1) && (grid[y][x] !== grid[y][x + 1])) {
                         possibleMoves.push("right");
                     }
-                    /*         if ((x > 0) && (grid[y][x] !== grid[y][x - 1])) {
-             possibleMoves.push("left");
-         }
-         if ((y > 0) && (grid[y - 1][x] !== 0) && (grid[y - 1][x] !== grid[y][x])) {
-             possibleMoves.push("up");
-         }
-         if ((y < height - 1) && (grid[y + 1][x] !== grid[y][x])) {
-             possibleMoves.push("down");
-         }
-*/
+                    if ((x > 0) && (grid[y][x] !== grid[y][x - 1])) {
+                        possibleMoves.push("left");
+                    }
+                    if ((y > 0) && (grid[y - 1][x] !== 0) && (grid[y - 1][x] !== grid[y][x])) {
+                        possibleMoves.push("up");
+                    }
+                    if ((y < height - 1) && (grid[y + 1][x] !== grid[y][x])) {
+                        possibleMoves.push("down");
+                    }
+
                     if (possibleMoves.length > 0) {
                         possibleMoves.forEach(function(move) {
                             //we have a new possible solution 
@@ -163,7 +165,6 @@ function solve(input, stepsLimit) {
 
             }
         }
-
         return solutions;
     }
 
