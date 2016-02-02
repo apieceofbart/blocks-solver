@@ -5,6 +5,8 @@ var transpose = require('./utils/transpose');
 var emptyGrid = require('./utils/grid');
 var clone = require('clone');
 var chalk = require('chalk');
+var util = require('util');
+var flatten = require('./utils/flatten');
 
 
 function fillGrid(input) {
@@ -52,6 +54,7 @@ function isEmpty(grid) {
 }
 
 function swap(grid, x, y, direction) {
+    var newGrid = clone(grid);
     var directions = {
         "right": {
             x: 1,
@@ -70,11 +73,11 @@ function swap(grid, x, y, direction) {
             y: 1
         }
     }
-    var temp = grid[y][x];
-    grid[y][x] = grid[y + directions[direction].y][x + directions[direction].x];
-    grid[y + directions[direction].y][x + directions[direction].x] = temp;
+    var temp = newGrid[y][x];
+    newGrid[y][x] = newGrid[y + directions[direction].y][x + directions[direction].x];
+    newGrid[y + directions[direction].y][x + directions[direction].x] = temp;
 
-    return grid;
+    return newGrid;
 }
 
 function solve(input, stepsLimit) {
@@ -89,43 +92,47 @@ function solve(input, stepsLimit) {
 
     var grid = fillGrid(input);
 
-    var stepsLimit = stepsLimit || 1;
+    var stepsLimit = stepsLimit || 2;
     var possibleSolutions = [],
         solutions = [];
 
 
-    var possibleSolutions = findSolution(grid, 2);
+    var possibleSolutions = findSolution(grid, stepsLimit);
     //find correct solutions
 
-    //console.log('before:',possibleSolutions);
+    console.log('before:');
+
 
     if (isEmpty(grid)) return possibleSolutions;
-
+    var shortest = +Infinity;
     possibleSolutions.forEach(function(solution) {
-
-        if (solution[solution.length - 1].direction === "FINISHED") {
+        solution = flatten(solution)
+        console.log(util.inspect(solution, false, null));
+        console.log('-------');
+        if ((solution[solution.length - 1].direction === "FINISHED") && (solution.length < shortest)) {
             solutions.push(solution);
+            shortest = solution.length;
         }
     });
 
 
-    //console.log('after:', solutions);
+    console.log('after:', solutions);
 
 
-    //console.log(solutions[0]);
+    solutions[0].splice(-1);
 
     return solutions[0];
 
     function findSolution(grid, stepsLimit) {
-
-        if (isEmpty(grid)) return [{
-            direction: "FINISHED"
-        }];
+        if (isEmpty(grid)) {
+            console.log('finished');
+            return [{
+                direction: "FINISHED"
+            }];
+        }
         if (stepsLimit === 0) {
             //console.log(chalk.yellow.bgRed(stepsLimit));
-            return [{
-                direction: "STEPS LIMIT"
-            }];
+            return -1;
         }
 
         var solutions = [];
@@ -149,16 +156,24 @@ function solve(input, stepsLimit) {
                         possibleMoves.push("down");
                     }
 
+
+
                     if (possibleMoves.length > 0) {
                         possibleMoves.forEach(function(move) {
                             //we have a new possible solution 
                             //console.log('adding possible move:', x, ' ', y, ', move:', move);
-                            solutions.push([{
-                                x: x,
-                                y: y,
-                                direction: move
-                            }].concat(findSolution(clearGrid(swap(grid, x, y, move)), stepsLimit - 1)));
-
+                            //console.log('we might go:', move, ' , on level:', stepsLimit, ', x:', x, ',y:', y);
+                            //console.log('grid before:\n', grid);
+                            var goDeeper = findSolution(clearGrid(swap(grid, x, y, move)), stepsLimit - 1);
+                            //console.log('grid after:\n', grid);
+                            //console.log('result:', goDeeper);
+                            if (goDeeper !== -1) {
+                                solutions.push([{
+                                    x: x,
+                                    y: y,
+                                    direction: move
+                                }].concat(goDeeper));
+                            }
                         })
                     }
                 }
@@ -171,6 +186,7 @@ function solve(input, stepsLimit) {
 }
 
 function clearGrid(grid) {
+    var newGrid = clone(grid);
 
     /* 
         cleaning is a 2 step process:
@@ -186,11 +202,11 @@ function clearGrid(grid) {
     var oldGrid;
 
     do {
-        oldGrid = grid;
-        grid = vanish.grid(collapse.grid(oldGrid));
-    } while (!deepEqual(oldGrid, grid))
+        oldGrid = newGrid;
+        newGrid = vanish.grid(collapse.grid(oldGrid));
+    } while (!deepEqual(oldGrid, newGrid))
 
-    return grid;
+    return newGrid;
 }
 
 

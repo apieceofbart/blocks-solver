@@ -342,15 +342,13 @@ describe('find solution function', function() {
     })
     it('should work for level 1', function() {
         var sol = solver.solve([
-            [0, 0, 1, 0, 1, 1, 0, 0]
+            [0, 0, 0, 1, 0, 1, 1, 0, 0, 0]
         ]);
 
         expect(sol).to.deep.equal([{
             x: 3,
             y: 4,
             direction: "right"
-        }, {
-            direction: "FINISHED"
         }]);
     })
 
@@ -358,9 +356,8 @@ describe('find solution function', function() {
     it('should work for two right moves solution', function() {
         var sol = solver.solve([
             [0, 0, 1, 0, 0, 1, 1, 0, 0]
-        ]);
-        console.log(sol);
-        expect(sol.length).to.equal(2);
+        ], 2);
+
         expect(sol).to.deep.equal([{
             x: 2,
             y: 4,
@@ -374,19 +371,20 @@ describe('find solution function', function() {
 
 
 
-    /* it('should find a solution for level 2 in one step', function() {
-     var solution = solver.solve([
-         [0, 1, 0],
-         [1, 1, 0]
-     ]);     
-     expect(solution).to.deep.equal({
-         x: 4,
-         y: 4,
-         direction: "right"
-     })
 
- })
-*/
+    it('should find a solution for level 2 in one step', function() {
+        var solution = solver.solve([
+            [0, 1, 0],
+            [1, 1, 0]
+        ], 2);
+        expect(solution).to.deep.equal([{
+            x: 4,
+            y: 4,
+            direction: "right"
+        }])
+
+    })
+
 
 
 })
