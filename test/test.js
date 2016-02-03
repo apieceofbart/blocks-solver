@@ -41,6 +41,7 @@ describe('fill grid function', function() {
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 1, 1, 0, 0, 0, 0],
         ];
         expect(solver.fillGrid([
@@ -51,7 +52,7 @@ describe('fill grid function', function() {
     it('should work for 1 dimensional input of odd length', function() {
 
         var grid = [
-
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -66,7 +67,7 @@ describe('fill grid function', function() {
     it('should work for 2 dimensional input', function() {
 
         var grid = [
-
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 2, 0, 0, 0, 0],
@@ -495,7 +496,7 @@ describe('find solution function', function() {
 
         expect(sol).to.deep.equal([{
             x: 3,
-            y: 4,
+            y: 5,
             direction: "right"
         }]);
     })
@@ -508,11 +509,11 @@ describe('find solution function', function() {
 
         expect(sol).to.deep.equal([{
             x: 2,
-            y: 4,
+            y: 5,
             direction: "right"
         }, {
             x: 3,
-            y: 4,
+            y: 5,
             direction: "right"
         }])
     })
@@ -524,15 +525,16 @@ describe('find solution function', function() {
 
         expect(sol).to.deep.equal([{
             x: 1,
-            y: 4,
+            y: 5
+,
             direction: "right"
         }, {
             x: 2,
-            y: 4,
+            y: 5,
             direction: "right"
         }, {
             x: 3,
-            y: 4,
+            y: 5,
             direction: "right"
         }])
     })
@@ -546,7 +548,7 @@ describe('find solution function', function() {
         ], 2);
         expect(solution).to.deep.equal([{
             x: 4,
-            y: 4,
+            y: 5,
             direction: "right"
         }])
 
@@ -559,7 +561,7 @@ describe('find solution function', function() {
         ], 1);
         expect(solution).to.deep.equal([{
             x: 4,
-            y: 4,
+            y: 5,
             direction: "up"
         }])
 
@@ -573,7 +575,7 @@ describe('find solution function', function() {
         ], 1);
         expect(solution).to.deep.equal([{
             x: 5,
-            y: 2,
+            y: 3,
             direction: "right"
         }])
 
@@ -586,7 +588,7 @@ describe('find solution function', function() {
         ], 1);
         expect(solution).to.deep.equal([{
             x: 5,
-            y: 4,
+            y: 5,
             direction: "left"
         }])
 
@@ -601,7 +603,7 @@ describe('find solution function', function() {
         ], 1);
         expect(solution).to.deep.equal([{
             x: 5,
-            y: 2,
+            y: 3,
             direction: "up"
         }])
 
@@ -616,7 +618,7 @@ describe('find solution function', function() {
         ], 1);
         expect(solution).to.deep.equal([{
             x: 3,
-            y: 4,
+            y: 5,
             direction: "left"
         }])
 
@@ -632,7 +634,7 @@ describe('find solution function', function() {
         ], 1);
         expect(solution).to.deep.equal([{
             x: 4,
-            y: 2,
+            y: 3,
             direction: "right"
         }])
 
@@ -648,7 +650,7 @@ describe('find solution function', function() {
         ], 1);
         expect(solution).to.deep.equal([{
             x: 5,
-            y: 3,
+            y: 4,
             direction: "right"
         }])
 
@@ -663,7 +665,7 @@ describe('find solution function', function() {
         ], 1);
         expect(solution).to.deep.equal([{
             x: 3,
-            y: 4,
+            y: 5,
             direction: "left"
         }])
 
@@ -676,11 +678,11 @@ describe('find solution function', function() {
         ], 2);
         expect(solution).to.deep.equal([{
             x: 2,
-            y: 4,
+            y: 5,
             direction: 'right'
         }, {
             x: 6,
-            y: 4,
+            y: 5,
             direction: 'left'
         }])
 
