@@ -102,7 +102,7 @@ function solve(input, stepsLimit) {
     var possibleSolutions = findSolution(grid, stepsLimit);
     //find correct solutions
     /*console.log(grid);
-*/
+     */
     /*console.log('possible solutions before flatten:', possibleSolutions);*/
 
 
@@ -129,11 +129,11 @@ function solve(input, stepsLimit) {
 
 
     /*console.log('theSolution:', theSolution);
-*/
+     */
 
 
 
-
+    if (!theSolution) throw new Error("No solution found, sorry:(");
     theSolution.splice(-1);
 
     return theSolution;
