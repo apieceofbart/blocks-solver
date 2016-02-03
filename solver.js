@@ -7,6 +7,7 @@ var clone = require('clone');
 var chalk = require('chalk');
 var util = require('util');
 var flatten = require('./utils/flatten');
+var multiFlatten = require('./utils/multiFlatten');
 
 
 function fillGrid(input) {
@@ -94,44 +95,61 @@ function solve(input, stepsLimit) {
 
     var stepsLimit = stepsLimit || 2;
     var possibleSolutions = [],
-        solutions = [];
+        theSolution;
+
 
 
     var possibleSolutions = findSolution(grid, stepsLimit);
     //find correct solutions
-
-    console.log('before:');
+    /*console.log(grid);
+*/
+    /*console.log('possible solutions before flatten:', possibleSolutions);*/
 
 
     if (isEmpty(grid)) return possibleSolutions;
+
     var shortest = +Infinity;
+
     possibleSolutions.forEach(function(solution) {
-        solution = flatten(solution)
-        console.log(util.inspect(solution, false, null));
-        console.log('-------');
-        if ((solution[solution.length - 1].direction === "FINISHED") && (solution.length < shortest)) {
-            solutions.push(solution);
-            shortest = solution.length;
+        /*console.log('real solutions so far TOTAL:', solutions);*/
+        solution = multiFlatten(solution);
+
+        /*console.log('flattened solution:', util.inspect(solution, false, null));*/
+        /*console.log('-------');*/
+        /*console.log(solution[0]);
+        console.log(solution[0][solution[0].length - 1]);*/
+        if ((Array.isArray(solution[0])) && (solution[0][solution[0].length - 1].direction === "FINISHED") && (solution[0].length < shortest)) {
+
+            theSolution = solution[0];
+            shortest = solution[0].length;
+
+
         }
     });
 
 
-    console.log('after:', solutions);
+    /*console.log('theSolution:', theSolution);
+*/
 
 
-    solutions[0].splice(-1);
 
-    return solutions[0];
+
+    theSolution.splice(-1);
+
+    return theSolution;
 
     function findSolution(grid, stepsLimit) {
         if (isEmpty(grid)) {
-            console.log('finished');
-            return [{
-                direction: "FINISHED"
-            }];
+            /*console.log('finished');
+             */
+            return [
+                [{
+                    direction: "FINISHED"
+                }]
+            ];
         }
         if (stepsLimit === 0) {
-            //console.log(chalk.yellow.bgRed(stepsLimit));
+            /*console.log('steps limit');            */
             return -1;
         }
 
@@ -161,12 +179,12 @@ function solve(input, stepsLimit) {
                     if (possibleMoves.length > 0) {
                         possibleMoves.forEach(function(move) {
                             //we have a new possible solution 
-                            //console.log('adding possible move:', x, ' ', y, ', move:', move);
-                            //console.log('we might go:', move, ' , on level:', stepsLimit, ', x:', x, ',y:', y);
-                            //console.log('grid before:\n', grid);
+                            /*console.log('adding possible move:', x, ' ', y, ', move:', move);*/
+                            /*console.log('we might go:', move, ' , on level:', stepsLimit, ', x:', x, ',y:', y);*/
+                            /*console.log('grid before:\n', grid);*/
                             var goDeeper = findSolution(clearGrid(swap(grid, x, y, move)), stepsLimit - 1);
-                            //console.log('grid after:\n', grid);
-                            //console.log('result:', goDeeper);
+                            /*console.log('grid after:\n', grid);*/
+                            /*console.log('result:', goDeeper);*/
                             if (goDeeper !== -1) {
                                 solutions.push([{
                                     x: x,
