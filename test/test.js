@@ -478,6 +478,71 @@ describe('multiFlatten function', function() {
     })
 });
 
+describe('areSymetrical function', function() {
+    it('should work for two blocks next to each other on the same x axis', function() {
+        var left = {
+                x: 3,
+                y: 5,
+                direction: "right"
+            },
+            right = {
+                x: 4,
+                y: 5,
+                direction: "left"
+            }
+        expect(solver.areSymetrical(left, right)).to.equal(true);
+        expect(solver.areSymetrical(right, left)).to.equal(true);
+    })
+
+    it('should not work for two blocks far away from each other on the same x axis', function() {
+        var left = {
+                x: 2,
+                y: 5,
+                direction: "right"
+            },
+            right = {
+                x: 4,
+                y: 5,
+                direction: "left"
+            }
+        expect(solver.areSymetrical(left, right)).to.equal(false);
+        expect(solver.areSymetrical(right, left)).to.equal(false);
+    })
+
+    it('should work for two blocks next to each other on the same y axis', function() {
+        var top = {
+                x: 3,
+                y: 4,
+                direction: "down"
+            },
+            bottom = {
+                x: 3,
+                y: 5,
+                direction: "up"
+            }
+        expect(solver.areSymetrical(top, bottom)).to.equal(true);
+        expect(solver.areSymetrical(bottom, top)).to.equal(true);
+    })
+
+    it('should not work for two blocks far away from each other on the same y axis', function() {
+        var top = {
+                x: 3,
+                y: 3,
+                direction: "down"
+            },
+            bottom = {
+                x: 3,
+                y: 5,
+                direction: "up"
+            }
+        expect(solver.areSymetrical(top, bottom)).to.equal(false);
+        expect(solver.areSymetrical(bottom, top)).to.equal(false);
+    })
+
+
+
+})
+
 
 describe('find solution function', function() {
     it('should work for empty grid', function() {
@@ -868,7 +933,7 @@ describe('find solution function', function() {
             [2, 0, 3, 0, 2],
             [2, 0, 1, 0, 2],
             [1, 2, 3, 2, 1]
-        ], 4);
+        ], 3);
 
         expect(solution).to.deep.equal([{
             x: 4,
@@ -894,7 +959,7 @@ describe('find solution function', function() {
             [2, 1, 3],
             [3, 2, 3],
             [2, 1, 1]
-        ], 4);
+        ], 3);
 
         expect(solution).to.deep.equal([{
             x: 3,
@@ -919,7 +984,7 @@ describe('find solution function', function() {
             [0, 0, 3, 2, 4],
             [0, 0, 1, 3, 3],
             [2, 0, 2, 1, 1]
-        ], 4);
+        ], 3);
 
         expect(solution).to.deep.equal([{
             x: 3,

@@ -156,51 +156,106 @@ function solve(input, stepsLimit) {
         var solutions = [];
         var height = grid.length,
             width = grid[0].length;
+        var possibleMoves = [];
         for (var y = height - 1; y >= 0; y--) {
             for (var x = 0; x < width; x++) {
-                var possibleMoves = [];
+
 
                 if (grid[y][x] !== 0) {
                     if ((x < width - 1) && (grid[y][x] !== grid[y][x + 1])) {
-                        possibleMoves.push("right");
+                        possibleMoves.push({
+                            x: x,
+                            y: y,
+                            direction: "right"
+                        });
                     }
                     if ((x > 0) && (grid[y][x] !== grid[y][x - 1])) {
-                        possibleMoves.push("left");
+                        possibleMoves.push({
+                            x: x,
+                            y: y,
+                            direction: "left"
+                        });
                     }
                     if ((y > 0) && (grid[y - 1][x] !== 0) && (grid[y - 1][x] !== grid[y][x])) {
-                        possibleMoves.push("up");
+                        possibleMoves.push({
+                            x: x,
+                            y: y,
+                            direction: "up"
+                        });
+
                     }
                     if ((y < height - 1) && (grid[y + 1][x] !== grid[y][x])) {
-                        possibleMoves.push("down");
+                        possibleMoves.push({
+                            x: x,
+                            y: y,
+                            direction: "down"
+                        });
                     }
 
 
 
-                    if (possibleMoves.length > 0) {
-                        possibleMoves.forEach(function(move) {
-                            //we have a new possible solution 
-                            /*console.log('adding possible move:', x, ' ', y, ', move:', move);*/
-                            /*console.log('we might go:', move, ' , on level:', stepsLimit, ', x:', x, ',y:', y);*/
-                            /*console.log('grid before:\n', grid);*/
-                            var goDeeper = findSolution(clearGrid(swap(grid, x, y, move)), stepsLimit - 1);
-                            /*console.log('grid after:\n', grid);*/
-                            /*console.log('result:', goDeeper);*/
-                            if (goDeeper !== -1) {
-                                solutions.push([{
-                                    x: x,
-                                    y: y,
-                                    direction: move
-                                }].concat(goDeeper));
-                            }
-                        })
-                    }
+
                 }
 
             }
         }
+
+        if (possibleMoves.length > 0) {
+            /*console.log('POSSIBLE MOVES:', possibleMoves.length);*/
+            var uniqueMoves = [];
+            possibleMoves.forEach(function(move) {
+                //we have a new possible solution 
+                /*console.log('adding possible move:', move);*/
+                /*console.log('we might go:', move, ' , on level:', stepsLimit, ', x:', x, ',y:', y);*/
+                /*console.log('grid before:\n', grid);*/
+
+                //first check if we don't have simetrical moves, e.g. {x:3, y:4, "right"} === {x:4, y:4, "left"}
+                var add = true;
+                uniqueMoves.forEach(function(uniqueMove) {
+                    if (areSymetrical(move, uniqueMove)) add = false;
+                })
+                if (add) {
+                    uniqueMoves.push(move);
+                }
+
+
+            })
+
+            /*console.log('UNIQUE MOVES:', uniqueMoves.length);
+*/
+
+            uniqueMoves.forEach(function(move) {
+                var goDeeper = findSolution(clearGrid(swap(grid, move.x, move.y, move.direction)), stepsLimit - 1);
+                /*console.log('grid after:\n', grid);*/
+                /*console.log('result:', goDeeper);*/
+                if (goDeeper !== -1) {
+                    solutions.push([move].concat(goDeeper));
+                }
+            })
+        }
+
+
         return solutions;
     }
 
+}
+
+function areSymetrical(move1, move2) {
+    if (move1.y === move2.y) {
+        if (
+            ((move1.x - move2.x === 1) && (move1.direction === "left") && (move2.direction === "right")) ||
+            ((move2.x - move1.x === 1) && (move1.direction === "right") && (move2.direction === "left"))
+        ) return true;
+    }
+
+    if (move1.x === move2.x) {
+        if (
+            ((move1.y - move2.y === 1) && (move1.direction === "up") && (move2.direction === "down")) ||
+            ((move2.y - move1.y === 1) && (move1.direction === "down") && (move2.direction === "up"))
+        ) return true;
+    }
+
+    return false;
 }
 
 function clearGrid(grid) {
@@ -232,5 +287,6 @@ module.exports = {
     fillGrid: fillGrid,
     clearGrid: clearGrid,
     isEmpty: isEmpty,
-    solve: solve
+    solve: solve,
+    areSymetrical: areSymetrical
 }
