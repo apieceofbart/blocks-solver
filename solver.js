@@ -21,8 +21,6 @@ function fillGrid(input) {
     var gridHeight = grid.length,
         gridWidth = grid[0].length;
 
-
-
     //place the input on the ground in the middle
     //we assume input is a 2 dimensional array and its size is less than grid
 
@@ -100,6 +98,8 @@ function solve(input, stepsLimit) {
 
     var grids = [];
     var possibleSolutions = findSolution(grid, stepsLimit);
+
+
     /*    console.log('grid combinations:', grids.length);
 
         //get unique grid combinations 
@@ -126,21 +126,45 @@ function solve(input, stepsLimit) {
 
     var shortest = +Infinity;
 
-    possibleSolutions.forEach(function(solution) {
+
+
+    possibleSolutions.forEach(function(solutionsStartingAtSamePoint) {
         /*console.log('real solutions so far TOTAL:', solutions);*/
-        solution = multiFlatten(solution);
+
+        /*       if (deepEqual(solution[0], {
+               x: 3,
+               y: 4,
+               direction: "right"
+           })) {
+           console.log('solution:', util.inspect(solution, false, null));
+           console.log('flattened solution:', util.inspect(multiFlatten(solution), false, null));
+
+       }
+*/
+        solutionsStartingAtSamePoint = multiFlatten(solutionsStartingAtSamePoint);
+
 
         /*console.log('flattened solution:', util.inspect(solution, false, null));*/
         /*console.log('-------');*/
         /*console.log(solution[0]);
         console.log(solution[0][solution[0].length - 1]);*/
-        if ((Array.isArray(solution[0])) && (solution[0][solution[0].length - 1].direction === "FINISHED") && (solution[0].length < shortest)) {
+        solutionsStartingAtSamePoint.forEach(function(solution) {
 
-            theSolution = solution[0];
-            shortest = solution[0].length;
+            if ((solution[solution.length - 1].direction === "FINISHED") && (solution.length < shortest)) {
+                theSolution = solution;
+                shortest = solution.length;
+            }
+
+        })
+
+        /*     if ((Array.isArray(solution[0])) && (solution[0][solution[0].length - 1].direction === "FINISHED") && (solution[0].length < shortest)) {
+
+         theSolution = solution[0];
+         shortest = solution[0].length;
 
 
-        }
+     }
+*/
     });
 
 
