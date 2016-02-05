@@ -37,18 +37,6 @@ function swap(grid, x, y, direction) {
 
 function solve(input, stepsLimit) {
 
-    /* 
-        BRUTE FORCE:
-        we move each block in possible directions with some constraints:
-            * stage borders
-            * we only swap blocks if they are different (no point swapping same blocks)
-            * we don't move block up if there's nothing above him
-        
-        After that we clear grid and move again. 
-        note: moving is always swaping, sometimes with a block sometimes with air (number 0)
-        We stop after fixed steps (e.g. 5) or when the grid is empty
-    */
-
     var grid = fillGrid(input);
 
     var stepsLimit = stepsLimit || 2;
@@ -77,13 +65,28 @@ function solve(input, stepsLimit) {
     });
 
     if (!theSolution) throw new Error("No solution found, sorry:(");
+
     theSolution.splice(-1);
 
     return theSolution;
 
     function findSolution(grid, stepsLimit) {
-        if (isEmpty(grid)) {
 
+        /* 
+            BRUTE FORCE:
+            we move each block in possible directions with some constraints:
+                * stage borders
+                * we only swap blocks if they are different (no point swapping same blocks)
+                * we don't move block up if there's nothing above him
+            
+            After that we clear grid and move again. 
+            note: moving is always swaping, sometimes with a block sometimes with air (number 0)
+            We stop after fixed steps (e.g. 5) or when the grid is empty
+        */
+
+
+
+        if (isEmpty(grid)) {
             return [
                 [{
                     direction: "FINISHED"
@@ -116,7 +119,6 @@ function solve(input, stepsLimit) {
         var possibleMoves = [];
         for (var y = height - 1; y >= 0; y--) {
             for (var x = 0; x < width; x++) {
-
 
                 if (grid[y][x] !== 0) {
                     if ((x < width - 1) && (grid[y][x] !== grid[y][x + 1])) {
@@ -162,22 +164,15 @@ function solve(input, stepsLimit) {
                 uniqueMoves.forEach(function(uniqueMove) {
                     if (areSymetrical(move, uniqueMove)) add = false;
                 })
-                if (add) {
-                    uniqueMoves.push(move);
-                }
-
-
-            })
+                if (add) uniqueMoves.push(move);
+            });
 
             uniqueMoves.forEach(function(move) {
                 var goDeeper = findSolution(clearGrid(swap(grid, move.x, move.y, move.direction)), stepsLimit - 1);
-                if (goDeeper !== -1) {
-                    solutions.push([move].concat(goDeeper));
-                }
-            })
+                if (goDeeper !== -1) solutions.push([move].concat(goDeeper));
+
+            });
         }
-
-
         return solutions;
     }
 
