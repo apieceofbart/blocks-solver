@@ -55,17 +55,7 @@ describe('vanish grid function', function() {
             [0, 0, 0]
         ])
     })
-    it('should vanish rows first', function() {
-        expect(vanish.grid([
-            [1, 0, 0],
-            [1, 0, 0],
-            [1, 1, 1]
-        ])).to.deep.equal([
-            [1, 0, 0],
-            [1, 0, 0],
-            [0, 0, 0]
-        ])
-    })
+
 
     it('should vanish two rows at the same time', function() {
         expect(vanish.grid([
@@ -76,4 +66,28 @@ describe('vanish grid function', function() {
             [1, 0, 0, 0]
         ])
     })
+
+    it('should vanish row and column at the same time', function() {
+        expect(vanish.grid([
+            [1, 1, 1],
+            [0, 1, 0],
+            [0, 1, 0]
+
+        ])).to.deep.equal([
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ])
+
+        expect(vanish.grid([
+            [1, 0, 0],
+            [1, 0, 0],
+            [1, 1, 1]
+        ])).to.deep.equal([
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ])
+    })
+
 })

@@ -10,11 +10,11 @@ describe('find solution function for levels 11-20', function() {
         ], 2);
         expect(solution).to.deep.equal([{
             x: 2,
-            y: 5,
+            y: 0,
             direction: 'right'
         }, {
             x: 6,
-            y: 5,
+            y: 0,
             direction: 'left'
         }])
 
@@ -31,11 +31,11 @@ describe('find solution function for levels 11-20', function() {
 
         ], 2);
         expect(solution).to.deep.equal([{
-            x: 4,
+            x: 2,
             y: 5,
             direction: 'up'
         }, {
-            x: 4,
+            x: 2,
             y: 2,
             direction: 'up'
         }])
@@ -49,12 +49,12 @@ describe('find solution function for levels 11-20', function() {
 
         ], 2);
         expect(solution).to.deep.equal([{
-            x: 3,
-            y: 5,
+            x: 2,
+            y: 1,
             direction: 'up'
         }, {
-            x: 4,
-            y: 5,
+            x: 3,
+            y: 1,
             direction: 'up'
         }])
 
@@ -68,12 +68,12 @@ describe('find solution function for levels 11-20', function() {
 
         ], 2);
         expect(solution).to.deep.equal([{
-            x: 3,
-            y: 3,
+            x: 2,
+            y: 0,
             direction: 'right'
         }, {
-            x: 4,
-            y: 3,
+            x: 3,
+            y: 0,
             direction: 'right'
         }])
 
@@ -88,11 +88,11 @@ describe('find solution function for levels 11-20', function() {
         ], 2);
         expect(solution).to.deep.equal([{
             x: 2,
-            y: 5,
+            y: 1,
             direction: 'left'
         }, {
             x: 5,
-            y: 5,
+            y: 1,
             direction: 'left'
         }])
 
@@ -105,12 +105,12 @@ describe('find solution function for levels 11-20', function() {
             [2, 2, 1, 1]
         ], 2);
         expect(solution).to.deep.equal([{
-            x: 4,
-            y: 4,
+            x: 3,
+            y: 1,
             direction: 'right'
         }, {
-            x: 6,
-            y: 3,
+            x: 5,
+            y: 0,
             direction: 'right'
         }])
 
@@ -125,12 +125,12 @@ describe('find solution function for levels 11-20', function() {
             [1, 2]
         ], 2);
         expect(solution).to.deep.equal([{
-            x: 5,
-            y: 4,
+            x: 3,
+            y: 3,
             direction: 'up'
         }, {
-            x: 4,
-            y: 3,
+            x: 2,
+            y: 2,
             direction: 'right'
         }])
 
@@ -145,11 +145,11 @@ describe('find solution function for levels 11-20', function() {
         ], 2);
         expect(solution).to.deep.equal([{
             x: 3,
-            y: 4,
+            y: 2,
             direction: 'right'
         }, {
             x: 3,
-            y: 5,
+            y: 3,
             direction: 'right'
         }])
 
@@ -163,12 +163,12 @@ describe('find solution function for levels 11-20', function() {
             [4, 2, 2, 1]
         ], 2);
         expect(solution).to.deep.equal([{
-            x: 3,
-            y: 4,
+            x: 2,
+            y: 2,
             direction: 'right'
         }, {
-            x: 3,
-            y: 5,
+            x: 2,
+            y: 3,
             direction: 'left'
         }])
 
@@ -184,11 +184,11 @@ describe('find solution function for levels 11-20', function() {
             [2, 2, 3]
         ], 2);
         expect(solution).to.deep.equal([{
-            x: 3,
+            x: 2,
             y: 3,
             direction: 'right'
         }, {
-            x: 3,
+            x: 2,
             y: 3,
             direction: 'left'
         }])
