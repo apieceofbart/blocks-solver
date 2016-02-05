@@ -1,7 +1,7 @@
 # blocks-solver
 This repo should be able to solve puzzle similar to this one: http://armorgames.com/play/13707/blocks
 ##Instalation
-Just clone the repo and type `npm install` to get all the dependencies (will get rid of them in the future)
+Just clone the repo - there are no dependencies to install. If you want to try testing type `npm install` to get mocha and chai.
 ##Usage
 `solver.js` module has `solve` method that takes two parameters: **grid** and **step limit**. 
 
