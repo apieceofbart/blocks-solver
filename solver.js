@@ -83,8 +83,12 @@ function solve(input, stepsLimit) {
 
     /* 
         BRUTE FORCE:
-        we move each block in possible directions (we only move up if there's a block there)
-        from there we clear grid and move again. 
+        we move each block in possible directions with some constraints:
+            * stage borders
+            * we only swap blocks if they are different (no point swapping same blocks)
+            * we don't move block up if there's nothing above him
+        
+        After that we clear grid and move again. 
         note: moving is always swaping, sometimes with a block sometimes with air (number 0)
         We stop after fixed steps (e.g. 5) or when the grid is empty
     */
@@ -99,79 +103,22 @@ function solve(input, stepsLimit) {
     var grids = [];
     var possibleSolutions = findSolution(grid, stepsLimit);
 
-
-    /*    console.log('grid combinations:', grids.length);
-
-        //get unique grid combinations 
-        var uniqueGrids = [];
-        grids.forEach(function(grid) {
-            var add = true;
-            uniqueGrids.forEach(function(uniqueGrid) {
-                if (deepEqual(grid.grid, uniqueGrid.grid)) add = false;
-            });
-            if (add) uniqueGrids.push(grid);
-        })
-
-        console.log('unique grid combinations:', uniqueGrids.length);
-    */
-
-    //find correct solutions
-    /*console.log(grid);
-     */
-    /*console.log('possible solutions before flatten:', possibleSolutions);*/
-
-
-
     if (isEmpty(grid)) return possibleSolutions;
 
     var shortest = +Infinity;
 
-
-
     possibleSolutions.forEach(function(solutionsStartingAtSamePoint) {
-        /*console.log('real solutions so far TOTAL:', solutions);*/
 
-        /*       if (deepEqual(solution[0], {
-               x: 3,
-               y: 4,
-               direction: "right"
-           })) {
-           console.log('solution:', util.inspect(solution, false, null));
-           console.log('flattened solution:', util.inspect(multiFlatten(solution), false, null));
-
-       }
-*/
         solutionsStartingAtSamePoint = multiFlatten(solutionsStartingAtSamePoint);
 
-
-        /*console.log('flattened solution:', util.inspect(solution, false, null));*/
-        /*console.log('-------');*/
-        /*console.log(solution[0]);
-        console.log(solution[0][solution[0].length - 1]);*/
         solutionsStartingAtSamePoint.forEach(function(solution) {
-
-            if ((solution[solution.length - 1].direction === "FINISHED") && (solution.length < shortest)) {
+            if (Array.isArray(solution) && (solution[solution.length - 1].direction === "FINISHED") && (solution.length < shortest)) {
                 theSolution = solution;
                 shortest = solution.length;
             }
 
         })
-
-        /*     if ((Array.isArray(solution[0])) && (solution[0][solution[0].length - 1].direction === "FINISHED") && (solution[0].length < shortest)) {
-
-         theSolution = solution[0];
-         shortest = solution[0].length;
-
-
-     }
-*/
     });
-
-
-    /*console.log('theSolution:', theSolution);
-     */
-
-
 
     if (!theSolution) throw new Error("No solution found, sorry:(");
     theSolution.splice(-1);
@@ -180,8 +127,7 @@ function solve(input, stepsLimit) {
 
     function findSolution(grid, stepsLimit) {
         if (isEmpty(grid)) {
-            /*console.log('finished');
-             */
+
             return [
                 [{
                     direction: "FINISHED"
@@ -189,12 +135,12 @@ function solve(input, stepsLimit) {
             ];
         }
         if (stepsLimit === 0) {
-            /*console.log('steps limit');            */
+
             return -1;
         }
 
         var add = true;
-        //console.log('grid:\n', grid)
+
         grids.forEach(function(uniqueGrid) {
             if (deepEqual(grid, uniqueGrid.grid) && (stepsLimit < uniqueGrid.step)) add = false;
 
@@ -246,17 +192,13 @@ function solve(input, stepsLimit) {
                             direction: "down"
                         });
                     }
-
-
-
-
                 }
 
             }
         }
 
         if (possibleMoves.length > 0) {
-            /*console.log('POSSIBLE MOVES:', possibleMoves.length);*/
+
             var uniqueMoves = [];
             possibleMoves.forEach(function(move) {
                 //first check if we don't have simetrical moves, e.g. {x:3, y:4, "right"} === {x:4, y:4, "left"}
@@ -271,22 +213,8 @@ function solve(input, stepsLimit) {
 
             })
 
-            //console.log('UNIQUE MOVES:', uniqueMoves.length);
-
             uniqueMoves.forEach(function(move) {
-
-                //we have a new possible solution 
-                /*console.log('adding possible move:', move);*/
-                /*console.log('we might go:', move, ' , on level:', stepsLimit, ', x:', x, ',y:', y);*/
-                /*console.log('grid before:\n', grid);*/
-                /*if (stepsLimit === 3) {
-    console.log(move);
-}
-*/
-                //if (move.x === 3 && move.y === 4) console.log('first move ', stepsLimit);
                 var goDeeper = findSolution(clearGrid(swap(grid, move.x, move.y, move.direction)), stepsLimit - 1);
-                /*console.log('grid after:\n', grid);*/
-                /*console.log('result:', goDeeper);*/
                 if (goDeeper !== -1) {
                     solutions.push([move].concat(goDeeper));
                 }

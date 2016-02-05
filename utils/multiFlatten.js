@@ -25,12 +25,8 @@ function multiFlatten(array) {
     var output = [];
 
     for (var i = 1; i < array.length; i++) {
-        /*console.log(array[1]);*/
         output.push([array[0]].concat(multiFlatten(array[i])[0]));
     }
-    /*console.log('input:', array);
-console.log('output:', output);
-*/
     return output;
 }
 
