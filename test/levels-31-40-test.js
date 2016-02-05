@@ -107,6 +107,24 @@ describe('find solution function for levels 31-40', function() {
 
     })
 
+    it('should find a solution for level 37 in one step', function() {
+        var solution = solver.solve([
+            [0, 0, 2, 0, 0],
+            [0, 0, 3, 0, 0],
+            [0, 2, 1, 3, 0],
+            [0, 1, 3, 1, 0],
+            [2, 1, 2, 1, 3],
+            [2, 2, 1, 3, 3]
+        ], 1);
+
+        expect(solution).to.deep.equal([{
+            x: 4,
+            y: 5,
+            direction: 'up'
+        }])
+
+    })
+
 
 
 
