@@ -125,6 +125,60 @@ describe('find solution function for levels 31-40', function() {
 
     })
 
+    it('should find a solution for level 38 in one step', function() {
+        var solution = solver.solve([
+            [0, 0, 1, 0, 1, 0, 0],
+            [0, 0, 2, 3, 2, 0, 0],
+            [0, 0, 2, 3, 2, 0, 0],
+            [0, 0, 3, 1, 3, 0, 0],
+            [2, 2, 1, 3, 1, 2, 2],
+            [1, 1, 2, 1, 2, 1, 1]
+        ], 1);
+
+        expect(solution).to.deep.equal([{
+            x: 5,
+            y: 4,
+            direction: 'up'
+        }])
+
+    })
+
+    it('should find a solution for level 39 in one step', function() {
+        var solution = solver.solve([
+            [0, 0, 3, 0, 0],
+            [0, 0, 1, 0, 0],
+            [0, 3, 2, 3, 0],
+            [0, 1, 3, 2, 0],
+            [1, 3, 1, 3, 2],
+            [1, 2, 1, 2, 2]
+        ], 1);
+
+        expect(solution).to.deep.equal([{
+            x: 3,
+            y: 5,
+            direction: 'right'
+        }])
+
+    })
+
+    it('should find a solution for level 40 in one step', function() {
+        var solution = solver.solve([
+            [0, 0, 2, 0, 0, 0, 0],
+            [0, 2, 1, 0, 2, 0, 0],
+            [0, 1, 2, 2, 1, 2, 2],
+            [0, 2, 1, 1, 2, 1, 1],
+            [2, 1, 3, 3, 2, 1, 2],
+            [1, 3, 2, 2, 1, 2, 1]
+        ], 1);
+
+        expect(solution).to.deep.equal([{
+            x: 7,
+            y: 5,
+            direction: 'up'
+        }])
+
+    })
+
 
 
 
