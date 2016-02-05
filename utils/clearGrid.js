@@ -1,7 +1,7 @@
 var clone = require('clone');
 var vanish = require('./vanish');
 var collapse = require('./collapse');
-var deepEqual = require('deeper');
+var areEqual = require('./areEqual');
 
 function clearGrid(grid) {
     var newGrid = clone(grid);
@@ -22,7 +22,7 @@ function clearGrid(grid) {
     do {
         oldGrid = newGrid;
         newGrid = vanish.grid(collapse.grid(oldGrid));
-    } while (!deepEqual(oldGrid, newGrid))
+    } while (!areEqual(oldGrid, newGrid))
 
     return newGrid;
 }

@@ -1,18 +1,17 @@
 {
-    "name": "blocks-solvers",
-    "description": "Solver for Blocks - puzzle game",
-    "version": "0.0.1",
-    "devDependencies": {
-        "chai": "^3.5.0",
-        "mocha": "^2.4.5"
-    },
-    "dependencies": {
-        "clone": "^1.0.2",
-        "deeper": "^2.1.0"
-    },
-    "scripts": {
-        "test": "mocha --timeout 30000",
-        "test-quick": "mocha --timeout 5000 -g 21-30 --invert",
-        "test-save": "mocha -R spec test/**/*.js > report 2>&1"
-    }
+  "name": "blocks-solvers",
+  "description": "Solver for Blocks - puzzle game",
+  "version": "0.0.1",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5"
+  },
+  "dependencies": {
+    "clone": "^1.0.2"
+  },
+  "scripts": {
+    "test": "mocha --timeout 30000",
+    "test-quick": "mocha --timeout 5000 -g 21-30 --invert",
+    "test-save": "mocha -R spec test/**/*.js > report 2>&1"
+  }
 }

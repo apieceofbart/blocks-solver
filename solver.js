@@ -1,4 +1,4 @@
-var deepEqual = require('deeper');
+var areEqual = require('./utils/areEqual');
 var clone = require('clone');
 var util = require('util');
 var multiFlatten = require('./utils/multiFlatten');
@@ -100,7 +100,7 @@ function solve(input, stepsLimit) {
         var add = true;
 
         grids.forEach(function(uniqueGrid) {
-            if (deepEqual(grid, uniqueGrid.grid) && (stepsLimit < uniqueGrid.step)) add = false;
+            if (areEqual(grid, uniqueGrid.grid) && (stepsLimit < uniqueGrid.step)) add = false;
 
         });
         if (add) {
