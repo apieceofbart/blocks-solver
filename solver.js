@@ -1,56 +1,12 @@
 var deepEqual = require('deeper');
-var collapse = require('./utils/collapse');
-var vanish = require('./utils/vanish');
-var transpose = require('./utils/transpose');
-var emptyGrid = require('./utils/grid');
 var clone = require('clone');
 var chalk = require('chalk');
 var util = require('util');
-var flatten = require('./utils/flatten');
 var multiFlatten = require('./utils/multiFlatten');
-
-
-function fillGrid(input) {
-
-    //by default we setup a big grid
-    //we need a space on the left and right for future moves
-    //10x5 should be ok
-
-    var grid = emptyGrid();
-
-    var gridHeight = grid.length,
-        gridWidth = grid[0].length;
-
-    //place the input on the ground in the middle
-    //we assume input is a 2 dimensional array and its size is less than grid
-
-    if (input) {
-        var height = input.length,
-            width = input[0].length;
-        var gridY = gridHeight - 1;
-
-        for (var y = height - 1; y >= 0; y--) {
-            for (var x = 0; x < width; x++) {
-                grid[gridY][Math.floor((gridWidth - width) / 2) + x] = input[y][x];
-            }
-            gridY--;
-        }
-
-    }
-
-    return grid;
-}
-
-function isEmpty(grid) {
-    var empty = true;
-    grid.forEach(function(row) {
-        row.forEach(function(el) {
-            if (el !== 0) empty = false;
-        })
-    })
-    return empty;
-
-}
+var isEmpty = require('./utils/isEmpty');
+var fillGrid = require('./utils/fillGrid');
+var clearGrid = require('./utils/clearGrid');
+var areSymetrical = require('./utils/areSymetrical');
 
 function swap(grid, x, y, direction) {
     var newGrid = clone(grid);
@@ -227,53 +183,6 @@ function solve(input, stepsLimit) {
 
 }
 
-function areSymetrical(move1, move2) {
-    if (move1.y === move2.y) {
-        if (
-            ((move1.x - move2.x === 1) && (move1.direction === "left") && (move2.direction === "right")) ||
-            ((move2.x - move1.x === 1) && (move1.direction === "right") && (move2.direction === "left"))
-        ) return true;
-    }
-
-    if (move1.x === move2.x) {
-        if (
-            ((move1.y - move2.y === 1) && (move1.direction === "up") && (move2.direction === "down")) ||
-            ((move2.y - move1.y === 1) && (move1.direction === "down") && (move2.direction === "up"))
-        ) return true;
-    }
-
-    return false;
-}
-
-function clearGrid(grid) {
-    var newGrid = clone(grid);
-
-    /* 
-        cleaning is a 2 step process:
-
-        1) we look for any blocks that are hanging in the air, e.g. if there's no block benath the block should fall down
-        2) we look for groups of the same object, group is a vertical or horizontal line with min. length of 3. 
-            If we find such group we remove all the blocks form the group and go to step 1.
-        
-        we loop until there are no hanging block or groups
-
-    */
-
-    var oldGrid;
-
-    do {
-        oldGrid = newGrid;
-        newGrid = vanish.grid(collapse.grid(oldGrid));
-    } while (!deepEqual(oldGrid, newGrid))
-
-    return newGrid;
-}
-
-
 module.exports = {
-    fillGrid: fillGrid,
-    clearGrid: clearGrid,
-    isEmpty: isEmpty,
-    solve: solve,
-    areSymetrical: areSymetrical
+    solve: solve
 }
