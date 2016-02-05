@@ -1,4 +1,4 @@
-var clone = require('clone');
+var clone = require('./clone');
 var vanish = require('./vanish');
 var collapse = require('./collapse');
 var areEqual = require('./areEqual');

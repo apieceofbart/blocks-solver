@@ -1,38 +1,11 @@
 var areEqual = require('./utils/areEqual');
-var clone = require('clone');
 var util = require('util');
 var multiFlatten = require('./utils/multiFlatten');
 var isEmpty = require('./utils/isEmpty');
 var fillGrid = require('./utils/fillGrid');
 var clearGrid = require('./utils/clearGrid');
 var areSymetrical = require('./utils/areSymetrical');
-
-function swap(grid, x, y, direction) {
-    var newGrid = clone(grid);
-    var directions = {
-        "right": {
-            x: 1,
-            y: 0
-        },
-        "left": {
-            x: -1,
-            y: 0
-        },
-        "up": {
-            x: 0,
-            y: -1
-        },
-        "down": {
-            x: 0,
-            y: 1
-        }
-    }
-    var temp = newGrid[y][x];
-    newGrid[y][x] = newGrid[y + directions[direction].y][x + directions[direction].x];
-    newGrid[y + directions[direction].y][x + directions[direction].x] = temp;
-
-    return newGrid;
-}
+var swap = require('./utils/swap');
 
 function solve(input, stepsLimit) {
 
