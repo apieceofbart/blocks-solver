@@ -1,4 +1,3 @@
-var deepEqual = require('deeper');
 var transpose = require('./transpose');
 
 function vanishGrid(grid) {
