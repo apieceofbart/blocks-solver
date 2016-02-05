@@ -10,8 +10,8 @@
         "mocha": "^2.4.5"
     },
     "scripts": {
-        "test": "mocha --timeout 30000",
-        "test-save": "mocha -R spec  test/**/*.js > report 2>&1"
+        "test": "mocha --timeout 30000 -g 21-30 --invert",
+        "test-save": "mocha -R spec test/**/*.js > report 2>&1"
 
     }
 }
