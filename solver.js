@@ -1,6 +1,5 @@
 var deepEqual = require('deeper');
 var clone = require('clone');
-var chalk = require('chalk');
 var util = require('util');
 var multiFlatten = require('./utils/multiFlatten');
 var isEmpty = require('./utils/isEmpty');
