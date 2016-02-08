@@ -202,20 +202,50 @@ describe('find solution function for levels 91-100', function() {
         ], 4);
 
         expect(solution).to.deep.equal([{
-            x: 4,
-            y: 3,
-            direction: 'right'
-        }, {
             x: 2,
+            y: 4,
+            direction: 'up'
+        }, {
+            x: 3,
+            y: 3,
+            direction: 'up'
+        }, {
+            x: 4,
             y: 4,
             direction: 'right'
         }, {
-            x: 2,
-            y: 5,
+            x: 5,
+            y: 2,
             direction: 'left'
+        }])
+
+    })
+
+    it.only('should find a solution for level 100 in four steps', function() {
+        var solution = solver.solve([
+            [0, 0, 1, 0, 0, 0],
+            [0, 0, 4, 2, 0, 0],
+            [0, 0, 1, 1, 2, 0],
+            [0, 0, 4, 1, 2, 0],
+            [0, 0, 3, 4, 1, 0],
+            [1, 1, 3, 1, 3, 1]
+        ], 4);
+
+        expect(solution).to.deep.equal([{
+            x: 2,
+            y: 4,
+            direction: 'up'
+        }, {
+            x: 3,
+            y: 3,
+            direction: 'up'
         }, {
             x: 4,
-            y: 5,
+            y: 4,
+            direction: 'right'
+        }, {
+            x: 5,
+            y: 2,
             direction: 'left'
         }])
 
