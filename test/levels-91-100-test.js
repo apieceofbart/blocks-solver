@@ -192,7 +192,7 @@ describe('find solution function for levels 91-100', function() {
 
     })
 
-    it.only('should find a solution for level 99 in four steps', function() {
+    it('should find a solution for level 99 in four steps', function() {
         var solution = solver.solve([
             [0, 1, 0, 1, 0],
             [0, 1, 0, 1, 0],
