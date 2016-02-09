@@ -192,6 +192,31 @@ describe('find solution function for levels 91-100', function() {
 
     })
 
+    it('should find a solution for level 99 after 1st step', function() {
+        var solution = solver.solve([
+            [0, 1, 0, 1, 0],
+            [0, 1, 0, 1, 0],
+            [0, 2, 0, 2, 0],
+            [2, 1, 0, 1, 0],
+            [1, 1, 2, 1, 2]
+        ], 3);
+
+        expect(solution).to.deep.equal([{
+            x: 4,
+            y: 4,
+            direction: 'right'
+        }, {
+            x: 3,
+            y: 4,
+            direction: 'up'
+        }, {
+            x: 5,
+            y: 2,
+            direction: 'left'
+        }])
+
+    })
+
     it('should find a solution for level 99 in four steps', function() {
         var solution = solver.solve([
             [0, 1, 0, 1, 0],
@@ -206,13 +231,13 @@ describe('find solution function for levels 91-100', function() {
             y: 4,
             direction: 'up'
         }, {
-            x: 3,
-            y: 3,
-            direction: 'up'
-        }, {
             x: 4,
             y: 4,
             direction: 'right'
+        }, {
+            x: 3,
+            y: 4,
+            direction: 'up'
         }, {
             x: 5,
             y: 2,
@@ -221,7 +246,7 @@ describe('find solution function for levels 91-100', function() {
 
     })
 
-    it.only('should find a solution for level 100 in four steps', function() {
+    it('should find a solution for level 100 in four steps', function() {
         var solution = solver.solve([
             [0, 0, 1, 0, 0, 0],
             [0, 0, 4, 2, 0, 0],
@@ -232,21 +257,21 @@ describe('find solution function for levels 91-100', function() {
         ], 4);
 
         expect(solution).to.deep.equal([{
-            x: 2,
-            y: 4,
-            direction: 'up'
+            x: 4,
+            y: 5,
+            direction: 'right'
         }, {
-            x: 3,
-            y: 3,
+            x: 6,
+            y: 5,
             direction: 'up'
         }, {
             x: 4,
-            y: 4,
-            direction: 'right'
-        }, {
-            x: 5,
-            y: 2,
+            y: 5,
             direction: 'left'
+        }, {
+            x: 6,
+            y: 5,
+            direction: 'right'
         }])
 
     })
